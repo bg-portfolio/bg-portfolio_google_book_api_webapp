@@ -1,14 +1,13 @@
-from fastapi import FastAPI, Depends
+from fastapi import Depends, APIRouter
 from sqlalchemy.orm import Session
-from .schemas import BookEntry
+from .models import BookEntry
 from .database import get_db
-from .models import Book
+from .schemas import Book
+
+api_router = APIRouter()
 
 
-app = FastAPI()
-
-
-@app.post("/")
+@api_router.post("/")
 def create_record(details: BookEntry, db: Session = Depends(get_db)):
     to_create = Book(
         isbn_13=details.isbn_13,
@@ -27,6 +26,13 @@ def create_record(details: BookEntry, db: Session = Depends(get_db)):
     }
 
 
-@app.get("/")
+@api_router.get("/")
 def get_record_by_isbn(isbn: int, db: Session = Depends(get_db)):
     return db.query(Book).filter(Book.isbn_13 == isbn).first()
+
+
+@api_router.delete("/")
+def delete_record_by_isbn(isbn: int, db: Session = Depends(get_db)):
+    db.query(Book).filter(Book.isbn_13 == isbn).delete()
+    db.commit()
+    return {"success": True, "deleted_id": isbn}
