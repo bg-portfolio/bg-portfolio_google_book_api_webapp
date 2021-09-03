@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import func as F
 from src.models import BookEntry
 from src.database import get_db
 from src.schemas import Book
@@ -61,10 +62,24 @@ def get_all_records_by_query_params(details: dict, db: Session) -> list:
     """
     returns a list of records, filtered with details from <dict>
     """
-    author = details["author"]
-    title = details["title"]
-    language = details["language"]
-    publish_date = details["publish_date"]
+    author_d = details["author"]
+    title_d = details["title"]
+    language_d = details["language"]
+    publish_date_d = details["publish_date"]  # not used
 
-    records = db.query(Book).filter(Book.author == )
-    return records
+    records = db.query(Book)
+
+    if author_d is not None:
+        author_d = "%{}%".format(author_d)
+        records = records.filter(
+            F.array_to_string(Book.author, ', ').like(author_d))  # unnests psg schemas' array of authors into string
+
+    if title_d is not None:
+        title_d = "%{}%".format(title_d)
+        records = records.filter(Book.title.like(title_d))
+
+    if language_d is not None:
+        language_d = "%{}%".format(language_d)
+        records = records.filter(Book.language.like(language_d))
+
+    return records.order_by(Book.isbn_13).all()

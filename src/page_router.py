@@ -4,7 +4,7 @@ from fastapi.templating import Jinja2Templates
 from typing import Optional
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import IntegrityError
-from src.apis_methods import get_all_records, update_record, create_record
+from src.apis_methods import get_all_records, update_record, create_record, get_all_records_by_query_params
 from src.database import get_db
 from src.models import GoogleBookRequest, BookEditionForm, BookEntry, BookDownloadForm
 from src.google_wrapper import get_google_books
@@ -102,10 +102,10 @@ async def view1_2b(request: Request, db: Session = Depends(get_db)):
 async def view3_1(request: Request, db: Session = Depends(get_db), title: Optional[str] = None, author: Optional[str] = None,
                   language: Optional[str] = None, publish_date: Optional[str] = None):
     details = {
-        "author": [author],
+        "author": author,
         "title": title,
         "language": language,
         "publish_date": publish_date
     }
-    data = []
+    data = get_all_records_by_query_params(details, db)
     return templates.TemplateResponse("view3-1.html", {"request": request, "data": data, "page_title": "view3-1"})

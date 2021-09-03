@@ -39,12 +39,12 @@ def api_get_all_records(db: Session = Depends(get_db)):
 def api_get_all_records_by_query_params(title: Optional[str] = None, author: Optional[str] = None,
                                         language: Optional[str] = None, publish_date: Optional[str] = None, db: Session = Depends(get_db)):
     details = {
-        "author": [author],
+        "author": author,
         "title": title,
         "language": language,
         "publish_date": publish_date
     }
-    records = get_all_records_by_query_params(details, db)
+    records = apis_methods.get_all_records_by_query_params(details, db)
     return records
 
 
