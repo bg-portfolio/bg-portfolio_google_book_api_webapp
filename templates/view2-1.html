@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+
+{% block header %}
+<title>{{page_title}}</title>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{page_title}}</h1>
+    <p style="text-align: left;"><b>Import books from Googles' Book API</b></p>
+
+    <div class="container">
+        <div class="row">
+            <div class="text-danger font-weight-bold">
+                {% for error in errors %}
+                <li>{{error}}</li>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row my-5">
+            <form method="POST">
+                <div class="mb-3">
+                    <label>req</label>
+                    <input type="text" required class="form-control" name="req" value="{{req}}"
+                        placeholder="{{req_placeholder}}">
+                </div>
+                <div class="mb-3">
+                    <label>intitle</label>
+                    <input type="text" placeholder="{{intitle_placeholder}}" name="intitle" value="{{intitle}}"
+                        class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>inauthor</label>
+                    <input type="text" placeholder="{{inauthor_placeholder}}" value="{{inauthor}}" name="inauthor"
+                        class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>inpublisher</label>
+                    <input type="text" placeholder="{{inpublisher_placeholder}}" value="{{inpublisher}}"
+                        name="inpublisher" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>subject/about</label>
+                    <input type="text" placeholder="{{subject_placeholder}}" value="{{subject}}" name="subject"
+                        class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>isbn</label>
+                    <input type="text" placeholder="{{isbn_placeholder}}" value="{{isbn}}" name="isbn"
+                        class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>lccn</label>
+                    <input type="text" placeholder="{{lccn_placeholder}}" value="{{lccn}}" name="lccn"
+                        class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>oclc</label>
+                    <input type="text" placeholder="{{oclc_placeholder}}" value="{{oclc}}" name="oclc"
+                        class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

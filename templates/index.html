@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 
 
-{% block title %}
+{% block header %}
 <title>Google Book API Registry</title>
 {% endblock %}
 
 {% block content %}
 <div class="container">
-    <h1 class="display-4">here be books</h1>
+    <h1 class="display-4" style="text-align: center;">here be books</h1>
+
+    {% with msg=msg %}
+    {% include "components/alerts.html" %}
+    {% endwith %}
 </div>
 {% endblock %}

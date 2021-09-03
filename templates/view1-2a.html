@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+
+{% block header %}
+<title>{{page_title}}</title>
+
+<link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap5.min.css">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 style="text-align: left;">{{page_title}}</h1>
+    <p style="text-align: left;"><b>Search the table on the right with your input, seperate multiple parameters with
+            space</b></p>
+    <table id="db" class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">ISBN_13</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Publish_date</th>
+                <th scope="col">Page_count</th>
+                <th scope="col">Language</th>
+                <th scope="col">Thumbnail_url</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td scope="row">{{ loop.index }}</td>
+                <td scope="row">{{ row.isbn_13 }}</td>
+                <td scope="row">{{ row.title }}</td>
+                <td scope="row">{{ row.author }}</td>
+                <td scope="row">{{ row.publish_date }}</td>
+                <td scope="row">{{ row.page_count }}</td>
+                <td scope="row">{{ row.language }}</td>
+                <td scope="row">{{ row.thumbnail_url }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.11.0/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" charset="utf8"
+    src="https://cdn.datatables.net/1.11.0/js/dataTables.bootstrap5.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#db').DataTable({
+            scrollX: false,
+            scrollY: 300,
+            paging: false,
+            columns: [
+                { orderable: false, searchable: false },
+                { orderable: false, searchable: false },
+                null,
+                null,
+                null,
+                { orderable: false, searchable: false },
+                null,
+                { orderable: false, searchable: false }],
+        });
+    });
+</script>
+
+{% endblock %}

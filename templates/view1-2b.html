@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+
+{% block header %}
+<title>{{page_title}}</title>
+
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>{{page_title}}</h1>
+    <p style="text-align: left;"><b>Add/update a book in a database, no deletion though!</b></p>
+
+    <div class="container">
+        <div class="row">
+            <div class="text-danger font-weight-bold">
+                {% for error in errors %}
+                <li>{{error}}</li>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row my-5">
+            <form method="POST">
+                <div class="mb-3">
+                    <label>isbn</label>
+                    <input type="text" required class="form-control" name="isbn_13" value="{{isbn_13}}"
+                        placeholder="isbn">
+                </div>
+                <div class="mb-3">
+                    <label>title</label>
+                    <input type="text" required placeholder="title" name="title" value="{{title}}" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>author</label>
+                    <input type="text" required placeholder="author" value="{{author}}" name="author"
+                        class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>published date</label>
+                    <input type="text" required placeholder="published date" value="{{publish_date}}"
+                        name="publish_date" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>page count</label>
+                    <input type="text" required placeholder="page count" value="{{page_count}}" name="page_count"
+                        class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>thumbnail url</label>
+                    <input type="text" required placeholder="thumbnail url" value="{{thumbnail_url}}"
+                        name="thumbnail_url" class="form-control">
+                </div>
+                <div class="mb-3">
+                    <label>language</label>
+                    <input type="text" required placeholder="language" value="{{language}}" name="language"
+                        class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

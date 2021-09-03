@@ -3,3 +3,5 @@ __pycache__
 .DS_Store
 logs/
 db_data/
+.pytest_cache/
+test_db.db
