@@ -26,4 +26,4 @@ def test_book_get_record_1(client):
     assert response.status_code == 200 or 202
     assert response.json()["isbn_13"] == isbn_13
     assert response.json()["title"] == "test_title"
-    assert response.json()["author"] == None
+    assert response.json()["author"] == [None]

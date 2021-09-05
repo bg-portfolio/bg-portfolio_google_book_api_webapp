@@ -21,7 +21,10 @@ async def get_google_books(google_query: GoogleBookRequest) -> list:
 
         for item in data["items"]:
             # check for proper isbn/there are different standards, not always isbn_13 is available, but the var name remain
-            isbn_13 = item["volumeInfo"]["industryIdentifiers"][0]["identifier"]
+            try:
+                isbn_13 = item["volumeInfo"]["industryIdentifiers"][1]["identifier"]
+            except:
+                isbn_13 = item["volumeInfo"]["industryIdentifiers"][0]["identifier"]
             if not isbn_13.isnumeric():
                 isbn_13 = "".join(
                     letter for letter in isbn_13 if letter.isnumeric())
@@ -37,6 +40,6 @@ async def get_google_books(google_query: GoogleBookRequest) -> list:
                     language=item["volumeInfo"]["language"]
                 )
                 book_list.append(book)
-            except ValueError as e:
+            except (ValueError, KeyError) as e:
                 print(e)
         return book_list

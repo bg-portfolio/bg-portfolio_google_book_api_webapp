@@ -10,7 +10,7 @@ sys.path.insert(0, '../src/')
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # this is to include src dir in sys.path so that we can import from database/app.py
 
-if 1:  # workaround pep8, vscode autosave
+if 1:  # workaround pep8, vscode autosave, as sys.path has to be before those imports
     from src import apis_router
     from src import database
     from src import db_meta

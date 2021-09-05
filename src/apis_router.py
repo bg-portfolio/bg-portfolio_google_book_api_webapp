@@ -57,6 +57,6 @@ def api_update_record(update: BookEntry, db: Session = Depends(get_db)):
 @ api_router.delete("/delete-record-by-isbn/{isbn_13}")
 def api_delete_record_by_isbn(isbn_13: int, db: Session = Depends(get_db)):
     if (validate_record_existance(db, isbn_13))[0]:
-        apis_methods.delete_record_by_isbn(isbn_13)
+        apis_methods.delete_record_by_isbn(isbn_13, db)
         return {"success": True, "deleted_id": isbn_13}
     return {"success": False, "info": f"isbn {isbn_13} do not exists"}
