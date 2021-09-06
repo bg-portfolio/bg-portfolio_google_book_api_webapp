@@ -60,6 +60,7 @@ def run_migrations_online():
 
     """
     url = os.environ.get("DATABASE_URL")
+    url = url.replace("postgres", "postgresql")
     if url:
         connectable = create_engine(url)
     else:
