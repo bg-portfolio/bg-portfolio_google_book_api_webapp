@@ -5,6 +5,7 @@ import os
 
 try:
     HEROKU_DATABASE_URL = os.environ["DATABASE_URL"]
+    HEROKU_DATABASE_URL = HEROKU_DATABASE_URL.replace("postgres", "postgresql")
 except KeyError:
     HEROKU_DATABASE_URL = None
 
