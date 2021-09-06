@@ -98,7 +98,7 @@ async def view1_2b(request: Request, db: Session = Depends(get_db)):
     return templates.TemplateResponse("/view2-1.html", form.__dict__)
 
 
-@page_router.get("/view3-1")
+@page_router.get("/view3-1", response_class=HTMLResponse)
 async def view3_1(request: Request, db: Session = Depends(get_db), title: Optional[str] = None, author: Optional[str] = None,
                   language: Optional[str] = None, publish_date: Optional[str] = None):
     details = {
